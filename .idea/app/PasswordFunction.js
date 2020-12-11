@@ -1,6 +1,6 @@
 function showPassword() {
-    var password = document.getElementById("password");
-    var confirmPassword = document.getElementById("confirmPassword")
+    let password = document.getElementById("password");
+    let confirmPassword = document.getElementById("confirmPassword");
     if (password.type === "password") {
         password.type = "text";
         confirmPassword.type = "text";
@@ -10,58 +10,43 @@ function showPassword() {
     }
 }
 
-var showvalidationMessages = function() {
-    document.getElementById("message").style.display = "block";
+let validator = function () {
+    let message = document.getElementById("message");
+    let password = document.getElementById("password");
+    let messages = "";
+    const length = "Password is too short. Min. 8 characters !";
+    const smallLetters = "Min. 1 small letter";
+    const capitalLetters = "Min. 1 capital letter";
+    const specialCharacters = "Min. 1 special character";
+    const numbers = "Min. 1 small number";
+
+    const lowerCaseLetters = /[a-z]/g;
+    if (!password.value.match(lowerCaseLetters)) {
+        messages += smallLetters;
+    }
+
+    const upperCaseLetters = /[A-Z]/g;
+    if (!password.value.match(upperCaseLetters)) {
+        messages += capitalLetters;
+    }
+
+    const numbersRegex = /[0-9]/g;
+    if (!password.value.match(numbersRegex)) {
+        messages += numbers;
+    }
+
+    const specialCharactersRegex = /[!@#$%^&*()]/g;
+    if (!password.value.match(specialCharactersRegex)) {
+        messages += specialCharacters;
+    }
+
+    if (password.value.length < 8) {
+        messages += length;
+    }
+    message.innerHTML = messages;
 }
 
-var hideValidationMessages = function() {
-    document.getElementById("message").style.display = "none";
-}
-
-var validator = function () {
-    var length = document.getElementById("length")
-    var smallLetters = document.getElementById("smallLetters")
-    var capitalLetters = document.getElementById("capitalLetters")
-    var specialCharacters = document.getElementById("specialCharacters")
-    var numbers = document.getElementById("numbers")
-    var password = document.getElementById("password")
-
-    var lowerCaseLetters = /[a-z]/g;
-    if (password.value.match(lowerCaseLetters)) {
-        smallLetters.style.display = "none";
-    } else {
-        smallLetters.style.display = "block";
-    }
-
-    var upperCaseLetters = /[A-Z]/g;
-    if (password.value.match(upperCaseLetters)) {
-        capitalLetters.style.display = "none";
-    } else {
-        capitalLetters.style.display = "block";
-    }
-
-    var numbersRegex = /[0-9]/g;
-    if (password.value.match(numbersRegex)) {
-        numbers.style.display = "none";
-    } else {
-        numbers.style.display = "block";
-    }
-
-    var specialCharactersRegex = /[!@#$%^&*()]/g;
-    if (password.value.match(specialCharactersRegex)) {
-        specialCharacters.style.display = "none";
-    } else {
-        specialCharacters.style.display = "block";
-    }
-
-    if (password.value.length >= 8) {
-        length.style.display = "none";
-    } else {
-        length.style.display = "block";
-    }
-}
-
-var confirmPasswords = function () {
+let confirmPasswords = function () {
     var password = document.getElementById("password");
     var confirmPassword = document.getElementById("confirmPassword")
     var confirmationMessage = document.getElementById("confirmationMessage")
@@ -74,7 +59,7 @@ var confirmPasswords = function () {
     }
 }
 
-var validateAndConfirmPassword = function () {
+let validateAndConfirmPassword = function () {
     validator();
     confirmPasswords();
 }
